@@ -36,7 +36,7 @@ async function renderPokemonIndex(currentPokemon) {
               <div class="card-body">
                   <h5 class="card-title text-capitalize">${pokemon["name"]}</h5>
                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a onclick="renderModal()" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</a> 
+                  <a onclick="renderModal('${pokemon["name"]}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</a> 
               </div>
             </div>        
         `;
@@ -52,7 +52,7 @@ async function loadMore(loadMoreUrl) {
   renderPokemonIndex(nextPokemon);
 }
 
-function renderModal() {
+function renderModal(name) {
   let modalContainer = document.getElementById("modal-container");
   modalContainer.innerHTML = '';
 
@@ -69,7 +69,7 @@ function renderModal() {
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">
-            Pickachu
+            ${name}
           </h1>
           <button
             type="button"
