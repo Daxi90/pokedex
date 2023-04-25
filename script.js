@@ -1,5 +1,5 @@
 let currentPokemon;
-let limit = 20;
+let limit = 10;
 let offset = 0;
 let loadMoreUrl;
 
@@ -16,7 +16,7 @@ async function getSinglePokemonOverviewImage(url) {
   let pokemonSingleData = await response.json();
   let imageUrl =
     pokemonSingleData["sprites"]["other"]["official-artwork"]["front_default"];
-  console.log(imageUrl);
+  //console.log(imageUrl);
   return imageUrl;
 }
 
@@ -24,11 +24,11 @@ async function renderPokemonIndex(currentPokemon) {
   let pokedex = document.getElementById("pokedex");
   for (let i = 0; i < currentPokemon["results"].length; i++) {
     const pokemon = currentPokemon["results"][i];
-
+    console.log(pokemon);
     //RENDER IMAGE FROM POKEMON
     let imageUrl = await getSinglePokemonOverviewImage(pokemon["url"]);
 
-    console.log(currentPokemon);
+    //console.log(currentPokemon);
     pokedex.innerHTML += /*html*/ `
 
             <div class="card col-lg-3 col-12" id="pokemon-${pokemon["name"]} style="width: 18rem;">
@@ -36,18 +36,61 @@ async function renderPokemonIndex(currentPokemon) {
               <div class="card-body">
                   <h5 class="card-title text-capitalize">${pokemon["name"]}</h5>
                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Details</a>
+                  <a onclick="renderModal()" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</a> 
               </div>
             </div>        
         `;
   }
 
   loadMoreUrl = currentPokemon["next"];
-  console.log(loadMoreUrl);
+  //console.log(loadMoreUrl);
 }
 
 async function loadMore(loadMoreUrl) {
   let response = await fetch(loadMoreUrl);
   nextPokemon = await response.json();
   renderPokemonIndex(nextPokemon);
+}
+
+function renderModal() {
+  let modalContainer = document.getElementById("modal-container");
+  modalContainer.innerHTML = '';
+
+  modalContainer.innerHTML = /*html*/ `
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Pickachu
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">...</div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  `;
 }
