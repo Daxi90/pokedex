@@ -3,10 +3,8 @@ let limit = 30;
 let offset = 0;
 let isLoading = false;
 
-let AUDIO_INTRO = new Audio('./audio/Pokemon-Theme-Song.mp3');
+let AUDIO_INTRO = new Audio("./audio/Pokemon-Theme-Song.mp3");
 AUDIO_INTRO.volume = 0.2;
-
-
 
 let tl = gsap.timeline();
 
@@ -23,6 +21,10 @@ function animateCard(card) {
     },
     "+=0.1"
   );
+}
+
+function doNotClose(event) {
+  event.stopPropagation();
 }
 
 async function loadPokedex() {
@@ -67,16 +69,22 @@ async function renderPokemonIndex(pokemonSet) {
     //RENDER IMAGE FROM POKEMON
     let imageUrl = await getSinglePokemonOverviewImage(pokemon["url"]);
     let types = await getSinglePokemonTypes(pokemon["url"]);
-    console.log(types);
+    let pokeId = pokemon["url"].split("/")[6];
+    // console.log(pokeId);
     //console.log(currentPokemon);
-    let card = document.createElement("div");
-    card.id = `pokemon-${pokemon["name"]}`;
-    card.className = "singlePokemonCard";
-    card.onclick = function () {
-      renderModal(pokemon["name"]);
-    };
+    renderCard(pokemon, types, imageUrl, pokeId);
+  }
+}
 
-    card.innerHTML = /*html*/ `
+function renderCard(pokemon, types, imageUrl, pokeId) {
+  let card = document.createElement("div");
+  card.id = `pokemon-${pokemon["name"]}`;
+  card.className = "singlePokemonCard";
+  card.onclick = function () {
+    renderModal(pokeId);
+  };
+
+  card.innerHTML = /*html*/ `
       <h2 class="singlePokemonCardHeader">${pokemon["name"]}</h2>
       <div class="singlePokemonCardDataContainer">
         <div class="singlePokemonCardDataContainerType">
@@ -88,26 +96,31 @@ async function renderPokemonIndex(pokemonSet) {
         </div>
       </div>
     `;
+  // Hier fügen wir die pokeId hinzu
+  card.dataset.pokeId = pokeId;
 
-    pokedex.appendChild(card);
-    animateCard(card);
-    
-  }
+  pokedex.appendChild(card);
+  animateCard(card);
 }
 
 function closeModal() {
   document.getElementById("modal").classList.add("d-none");
 }
 
-function renderModal(name) {
+async function renderModal(id) {
+  let dataUrl = `https://pokeapi.co/api/v2/pokemon/${id}/`;
+  let response = await fetch(dataUrl);
+  let pokemonDetailData = await response.json();
+
   let modalContainer = document.getElementById("modal-container");
   modalContainer.innerHTML = "";
 
   modalContainer.innerHTML = /*html*/ `
   <!-- Modal -->
   <div onclick="closeModal()" id="modal" class="modal-background-container">
-    <div class="modal-container">
-      <span>${name}</span>
+    <div onclick="doNotClose(event)" class="modal-container">
+      <img onclick="closeModal()" id="closePopup" src="./img/iconmonstr-x-mark-thin.svg" alt="">
+      <span id="pokeModalDetailName">${pokemonDetailData["name"]}</span>
     </div>
   </div>
   `;
