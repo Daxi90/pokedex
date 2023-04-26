@@ -5,7 +5,7 @@ let isLoading = false;
 
 let AUDIO_INTRO = new Audio('./audio/Pokemon-Theme-Song.mp3');
 AUDIO_INTRO.volume = 0.2;
-AUDIO_INTRO.play();
+
 
 
 let tl = gsap.timeline();

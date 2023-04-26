@@ -3,6 +3,10 @@
     padding: 32px;
 }
 
+#playSound{
+  cursor: pointer;
+}
+
 header{
     background-color: rgb(60 60 60);
     color: white;
