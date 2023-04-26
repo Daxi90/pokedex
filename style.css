@@ -2,6 +2,10 @@
     gap: 16px;
 }
 
+body{
+    overflow-x: hidden;
+}
+
 .modal-background-container{
     position: fixed;
     top:0;
@@ -22,3 +26,53 @@
     padding: 16px;
     border-radius: 15px;
 }
+
+.singlePokemonCard{
+    background-image: url('./img/pokemon-dark.jpg');
+    box-shadow: inset 0 0 0 2000px rgba(58, 58, 58, 0.808);
+    -webkit-box-shadow: 7px 6px 12px -6px rgba(135,128,135,1);
+    -moz-box-shadow: 7px 6px 12px -6px rgba(135,128,135,1);
+    box-shadow: 7px 6px 12px -6px rgba(135,128,135,1);
+    border-radius: 16px;
+    padding: 16px;
+    width: 350px;
+    height:250px;
+  }
+  
+  .singlePokemonCardHeader{
+    color: white;
+    text-transform: capitalize;
+  }
+  
+  .singlePokemonCardDataContainer{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .singlePokemonCardDataContainerType{
+    width: 50%;
+  }
+  
+  .singlePokemonCardDataContainerType div span{
+    background-color: rgba(255,255,255,0.2);
+    padding: 8px;
+    border-radius: 15px;
+    color:white;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    margin-bottom: 8px;
+  }
+  
+  .singlePokemonCardDataContainerImage{
+    width: 50%;
+  }
+  
+  .singlePokemonCardDataContainerImage img{
+    width: 100%;
+    object-fit: contain;
+  }

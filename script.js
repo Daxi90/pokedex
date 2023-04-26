@@ -1,14 +1,35 @@
 let currentPokemon;
-let limit = 10;
+let limit = 50;
 let offset = 0;
-let loadMoreUrl;
+let isLoading = false;
+
+let tl = gsap.timeline();
+
+// function animateCard(card) {
+//   tl.from(card, {opacity: 0, x: -200, rotate: 180, duration: 0.1}, "+=0.1");
+// }
+function animateCard(card) {
+  tl.from(
+    card,
+    {
+      opacity: 0,
+      x: 200,
+      rotate: 90,
+      duration: 0.5,
+      delay: 0.05,
+      ease: "back.out(1.7)",
+    },
+    "+=0.1"
+  );
+}
 
 async function loadPokedex() {
   let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
   let response = await fetch(url);
 
-  currentPokemon = await response.json();
-  renderPokemonIndex(currentPokemon);
+  pokemonSet = await response.json();
+  offset = offset + 50;
+  renderPokemonIndex(pokemonSet);
 }
 
 async function getSinglePokemonOverviewImage(url) {
@@ -20,40 +41,44 @@ async function getSinglePokemonOverviewImage(url) {
   return imageUrl;
 }
 
-async function renderPokemonIndex(currentPokemon) {
+async function renderPokemonIndex(pokemonSet) {
   let pokedex = document.getElementById("pokedex");
-  for (let i = 0; i < currentPokemon["results"].length; i++) {
-    const pokemon = currentPokemon["results"][i];
+
+  for (let i = 0; i < pokemonSet["results"].length; i++) {
+    const pokemon = pokemonSet["results"][i];
     console.log(pokemon);
     //RENDER IMAGE FROM POKEMON
     let imageUrl = await getSinglePokemonOverviewImage(pokemon["url"]);
 
     //console.log(currentPokemon);
-    pokedex.innerHTML += /*html*/ `
+    let card = document.createElement("div");
+    card.id = `pokemon-${pokemon["name"]}`;
+    card.className = "singlePokemonCard";
+    card.onclick = function () {
+      renderModal(pokemon["name"]);
+    };
 
-            <div class="card col-lg-3 col-12" id="pokemon-${pokemon["name"]} style="width: 18rem;">
-              <img src="${imageUrl}" class="card-img-top" alt="...">
-              <div class="card-body">
-                  <h5 class="card-title text-capitalize">${pokemon["name"]}</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a onclick="renderModal('${pokemon["name"]}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</a> 
-              </div>
-            </div>        
-        `;
+    card.innerHTML = /*html*/ `
+      <h2 class="singlePokemonCardHeader">${pokemon["name"]}</h2>
+      <div class="singlePokemonCardDataContainer">
+        <div class="singlePokemonCardDataContainerType">
+          <div><span>Grass</span></div>
+          <div><span>Poison</span></div> 
+        </div>
+        <div class="singlePokemonCardDataContainerImage">
+          <img src="${imageUrl}" alt="">
+        </div>
+      </div>
+    `;
+
+    pokedex.appendChild(card);
+
+    animateCard(card);
   }
-
-  loadMoreUrl = currentPokemon["next"];
-  //console.log(loadMoreUrl);
 }
 
-async function loadMore(loadMoreUrl) {
-  let response = await fetch(loadMoreUrl);
-  nextPokemon = await response.json();
-  renderPokemonIndex(nextPokemon);
-}
-
-function closeModal(){
-  document.getElementById('modal').classList.add('d-none');
+function closeModal() {
+  document.getElementById("modal").classList.add("d-none");
 }
 
 function renderModal(name) {
@@ -69,3 +94,16 @@ function renderModal(name) {
   </div>
   `;
 }
+
+window.onscroll = async function () {
+  if (
+    window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
+    !isLoading
+  ) {
+    // Funktion aufrufen, wenn am Ende der Seite angelangt
+    isLoading = true;
+    console.log("Pokemon nachladen");
+    await loadPokedex();
+    isLoading = false;
+  }
+};
