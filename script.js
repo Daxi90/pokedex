@@ -5,9 +5,6 @@ let isLoading = false;
 
 let tl = gsap.timeline();
 
-// function animateCard(card) {
-//   tl.from(card, {opacity: 0, x: -200, rotate: 180, duration: 0.1}, "+=0.1");
-// }
 function animateCard(card) {
   tl.from(
     card,
