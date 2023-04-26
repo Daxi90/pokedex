@@ -91,6 +91,7 @@ async function renderPokemonIndex(pokemonSet) {
 
     pokedex.appendChild(card);
     animateCard(card);
+    
   }
 }
 
