@@ -1,7 +1,12 @@
 let currentPokemon;
-let limit = 50;
+let limit = 30;
 let offset = 0;
 let isLoading = false;
+
+let AUDIO_INTRO = new Audio('./audio/Pokemon-Theme-Song.mp3');
+AUDIO_INTRO.volume = 0.2;
+AUDIO_INTRO.play();
+
 
 let tl = gsap.timeline();
 
@@ -10,7 +15,7 @@ function animateCard(card) {
     card,
     {
       opacity: 0,
-      x: 200,
+      x: -200,
       rotate: 90,
       duration: 0.5,
       delay: 0.05,
@@ -25,7 +30,7 @@ async function loadPokedex() {
   let response = await fetch(url);
 
   pokemonSet = await response.json();
-  offset = offset + 50;
+  offset = offset + 30;
   renderPokemonIndex(pokemonSet);
 }
 
@@ -62,7 +67,7 @@ async function renderPokemonIndex(pokemonSet) {
     //RENDER IMAGE FROM POKEMON
     let imageUrl = await getSinglePokemonOverviewImage(pokemon["url"]);
     let types = await getSinglePokemonTypes(pokemon["url"]);
-
+    console.log(types);
     //console.log(currentPokemon);
     let card = document.createElement("div");
     card.id = `pokemon-${pokemon["name"]}`;
