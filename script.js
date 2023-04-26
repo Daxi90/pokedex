@@ -35,7 +35,22 @@ async function getSinglePokemonOverviewImage(url) {
   let imageUrl =
     pokemonSingleData["sprites"]["other"]["official-artwork"]["front_default"];
   //console.log(imageUrl);
+  console.log(pokemonSingleData);
   return imageUrl;
+}
+
+async function getSinglePokemonTypes(url) {
+  let typeArray = [];
+
+  let response = await fetch(url);
+  let pokemonSingleData = await response.json();
+  let types = pokemonSingleData["types"];
+
+  for (let i = 0; i < types.length; i++) {
+    const type = types[i]["type"]["name"];
+    typeArray.push(type);
+  }
+  return typeArray;
 }
 
 async function renderPokemonIndex(pokemonSet) {
@@ -46,6 +61,7 @@ async function renderPokemonIndex(pokemonSet) {
     console.log(pokemon);
     //RENDER IMAGE FROM POKEMON
     let imageUrl = await getSinglePokemonOverviewImage(pokemon["url"]);
+    let types = await getSinglePokemonTypes(pokemon["url"]);
 
     //console.log(currentPokemon);
     let card = document.createElement("div");
@@ -59,8 +75,8 @@ async function renderPokemonIndex(pokemonSet) {
       <h2 class="singlePokemonCardHeader">${pokemon["name"]}</h2>
       <div class="singlePokemonCardDataContainer">
         <div class="singlePokemonCardDataContainerType">
-          <div><span>Grass</span></div>
-          <div><span>Poison</span></div> 
+          <div><span>${types[0]}</span></div>
+          <div><span>${types[1]}</span></div> 
         </div>
         <div class="singlePokemonCardDataContainerImage">
           <img src="${imageUrl}" alt="">
@@ -69,7 +85,6 @@ async function renderPokemonIndex(pokemonSet) {
     `;
 
     pokedex.appendChild(card);
-
     animateCard(card);
   }
 }
@@ -99,7 +114,6 @@ window.onscroll = async function () {
   ) {
     // Funktion aufrufen, wenn am Ende der Seite angelangt
     isLoading = true;
-    console.log("Pokemon nachladen");
     await loadPokedex();
     isLoading = false;
   }
