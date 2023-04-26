@@ -46,6 +46,11 @@ async function getSinglePokemonOverviewImage(url) {
   return imageUrl;
 }
 
+function getStats(pokemonDetailData) {
+  let stats = pokemonDetailData["stats"];
+  return stats;
+}
+
 async function getSinglePokemonTypes(url) {
   let typeArray = [];
 
@@ -76,12 +81,26 @@ async function renderPokemonIndex(pokemonSet) {
   }
 }
 
+function renderStats(stats) {
+  let statsContainer = document.getElementById("pokeModalDetailStats");
+  statsContainer.innerHTML = "";
+
+  for (let i = 0; i < stats.length; i++) {
+    const stat = stats[i];
+
+    statsContainer.innerHTML += `
+    <span>${stats[i]["stat"]["name"]}: ${stats[i]["base_stat"]}</span>
+    `;
+  }
+}
+
 function renderCard(pokemon, types, imageUrl, pokeId) {
   let card = document.createElement("div");
   card.id = `pokemon-${pokemon["name"]}`;
   card.className = "singlePokemonCard";
   card.onclick = function () {
     renderModal(pokeId);
+    console.log(pokeId);
   };
 
   card.innerHTML = /*html*/ `
@@ -111,6 +130,10 @@ async function renderModal(id) {
   let dataUrl = `https://pokeapi.co/api/v2/pokemon/${id}/`;
   let response = await fetch(dataUrl);
   let pokemonDetailData = await response.json();
+  let stats = getStats(pokemonDetailData);
+  console.log(stats);
+  console.log(stats[0]["base_stat"]);
+  console.log(stats[0]["stat"]["name"]);
 
   let modalContainer = document.getElementById("modal-container");
   modalContainer.innerHTML = "";
@@ -120,10 +143,15 @@ async function renderModal(id) {
   <div onclick="closeModal()" id="modal" class="modal-background-container">
     <div onclick="doNotClose(event)" class="modal-container">
       <img onclick="closeModal()" id="closePopup" src="./img/iconmonstr-x-mark-thin.svg" alt="">
-      <span id="pokeModalDetailName">${pokemonDetailData["name"]}</span>
+      <h3 id="pokeModalDetailName">${pokemonDetailData["name"]}</h3>
+      <div id="pokeModalDetailStats">
+       <!-- renderStats Function --> 
+      </div>
     </div>
   </div>
   `;
+
+  renderStats(stats);
 }
 
 window.onscroll = async function () {
