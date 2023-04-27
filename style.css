@@ -206,7 +206,7 @@ body {
 
 @media (max-width: 650px) {
   .popupsinglePokemonCard {
-    width: 90%;
+    width: 70%;
   }
 
   .popupsinglePokemonCardPokemon {

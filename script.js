@@ -23,35 +23,6 @@ function animateCard(card) {
   );
 }
 
-var initialX;
-var swipeOccurred = false;
-
-document.addEventListener("touchstart", function(event) {
-  initialX = event.touches[0].clientX;
-  swipeOccurred = false;
-});
-
-document.addEventListener("touchmove", function(event) {
-  if (!swipeOccurred) {
-    var currentX = event.touches[0].clientX;
-    var diffX = initialX - currentX;
-
-    if (diffX > 0) { // swipe left
-      if (currentPokemon <= 1281) {
-        currentPokemon++;
-        renderModal(currentPokemon);
-        swipeOccurred = true;
-      }
-    } else if (diffX < 0) { // swipe right
-      if (currentPokemon > 1) {
-        currentPokemon--;
-        renderModal(currentPokemon);
-        swipeOccurred = true;
-      }
-    }
-  }
-});
-
 document.addEventListener("keydown", function (event) {
   if (event.code === "ArrowRight") {
     if (currentPokemon <= 1281) {
