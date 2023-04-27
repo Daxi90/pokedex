@@ -169,6 +169,7 @@ body {
 
 .popupsinglePokemonCardPokemon {
   margin-bottom: -55px;
+  z-index: 10;
 }
 
 .popupsinglePokemonCardBody {
