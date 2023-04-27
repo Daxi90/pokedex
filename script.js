@@ -191,8 +191,8 @@ async function renderModal(id) {
       <img class="popupsinglePokemonCardPokemon" src="${pokemonDetailData["sprites"]["other"]["official-artwork"]["front_default"]}" alt="">
     </div>
     <div class="popupsinglePokemonCardBody">
-      <img onclick="previousPokemon()" style="width: 30px; position: absolute; top:38px; left: 16px;" src="./img/left-arrow.png" alt="">
-      <img onclick="nextPokemon()" style="width: 30px;  position: absolute; top:38px; right: 16px; transform: rotate(180deg)" src="./img/left-arrow.png" alt="">
+      <img onclick="previousPokemon()" style="cursor: pointer; width: 30px; position: absolute; top:38px; left: 16px;" src="./img/left-arrow.png" alt="">
+      <img onclick="nextPokemon()" style="cursor: pointer; width: 30px;  position: absolute; top:38px; right: 16px; transform: rotate(180deg)" src="./img/left-arrow.png" alt="">
       <span class="popupsinglePokemonCardBodyName">${pokemonDetailData["name"]}</span>
       <div id="pokeModalDetailStats" class="popupsinglePokemonCardBodyStatsContainer">
         <!-- Render Stats Function -->
