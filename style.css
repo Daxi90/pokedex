@@ -214,3 +214,33 @@ body {
     width: 100%;
   }
 }
+
+.progress {
+  width: 250px;
+  height: 16px;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
+.progress-bar {
+  background-color: green;
+  height: 16px;
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.leftStatBar{
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.rightStatBar{
+  width: 60%;
+
+}

@@ -90,8 +90,11 @@ function renderStats(stats) {
 
     statsContainer.innerHTML += `
     <div class="popupsingleStat">
-      <span>${stats[i]["stat"]["name"]}</span>
-      <span>${stats[i]["base_stat"]}</span>
+      <span class="leftStatBar">${stats[i]["stat"]["name"]}</span>
+      <div class="rightStatBar progress" role="progressbar" aria-valuenow="${stats[i]["base_stat"]}" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar" style="width: ${stats[i]["base_stat"]}%">${stats[i]["base_stat"]}</div>
+      </div>
+      <span></span>
     </div>
     <div class="popupline"></div>
     `;
