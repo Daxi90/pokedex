@@ -233,16 +233,15 @@ body {
   border-radius: 5px;
 }
 
-.leftStatBar{
+.leftStatBar {
   width: 40%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
-.rightStatBar{
+.rightStatBar {
   width: 60%;
-
 }
 
 /* Typ-Klassen */
@@ -319,6 +318,11 @@ body {
 .dragon {
   background-color: #7038f8 !important;
   color: white !important;
+}
+
+.ice {
+  background-color: #98d8d8;
+  color: white;
 }
 
 .default {

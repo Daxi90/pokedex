@@ -155,6 +155,8 @@ function getTypeClass(type){
     typeClass = "dragon";
   }else if(type == "nothing"){
     typeClass = "d-none";
+  }else if(type == "ice"){
+    typeClass = "ice";
   }
 
   return typeClass;
