@@ -115,58 +115,10 @@ function renderStats(stats) {
   }
 }
 
-function getTypeClass(type){
-  let typeClass = "default";
-
-  if(type == "grass"){
-    typeClass = "grass";
-  }else if(type == "fire"){
-    typeClass = "fire";
-  }else if(type == "water"){
-    typeClass = "water";
-  }else if(type == "bug"){
-    typeClass = "bug";
-  }else if(type == "normal"){
-    typeClass = "normal";
-  }else if(type == "poison"){
-    typeClass = "poison";
-  }else if(type == "electric"){
-    typeClass = "electric";
-  }else if(type == "ground"){
-    typeClass = "ground";
-  }else if(type == "psychic"){
-    typeClass = "psychic";
-  }else if(type == "fairy"){
-    typeClass = "fairy";
-  }else if(type == "fighting"){
-    typeClass = "fighting";
-  }else if(type == "ghost"){
-    typeClass = "ghost";
-  }else if(type == "rock"){
-    typeClass = "rock";
-  }else if(type == "flying"){
-    typeClass = "flying";
-  }else if(type == "dragon"){
-    typeClass = "dragon";
-  }else if(type == "nothing"){
-    typeClass = "d-none";
-  }else if(type == "ice"){
-    typeClass = "ice";
-  }
-
-  return typeClass;
-  
-}
 
 function renderCard(pokemon, types, imageUrl, pokeId) {
   let type1 = types[0] || "nothing";
   let type2 = types[1] || "nothing";
-
-  let type1Class = getTypeClass(type1);
-  let type2Class = getTypeClass(type2);
-
-
-
 
   let card = document.createElement("div");
   card.id = `pokemon-${pokemon["name"]}`;
@@ -179,8 +131,8 @@ function renderCard(pokemon, types, imageUrl, pokeId) {
       <h2 class="singlePokemonCardHeader">${pokemon["name"]}</h2>
       <div class="singlePokemonCardDataContainer">
         <div class="singlePokemonCardDataContainerType">
-          <div><span class="${type1Class}">${type1}</span></div>
-          <div><span class="${type2Class}">${type2}</span></div> 
+          <div><span class="${type1}">${type1}</span></div>
+          <div><span class="${type2}">${type2}</span></div> 
         </div>
         <div class="singlePokemonCardDataContainerImage">
           <img src="${imageUrl}" alt="">
