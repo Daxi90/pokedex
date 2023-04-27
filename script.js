@@ -23,6 +23,35 @@ function animateCard(card) {
   );
 }
 
+var initialX;
+var swipeOccurred = false;
+
+document.addEventListener("touchstart", function(event) {
+  initialX = event.touches[0].clientX;
+  swipeOccurred = false;
+});
+
+document.addEventListener("touchmove", function(event) {
+  if (!swipeOccurred) {
+    var currentX = event.touches[0].clientX;
+    var diffX = initialX - currentX;
+
+    if (diffX > 0) { // swipe left
+      if (currentPokemon <= 1281) {
+        currentPokemon++;
+        renderModal(currentPokemon);
+        swipeOccurred = true;
+      }
+    } else if (diffX < 0) { // swipe right
+      if (currentPokemon > 1) {
+        currentPokemon--;
+        renderModal(currentPokemon);
+        swipeOccurred = true;
+      }
+    }
+  }
+});
+
 document.addEventListener("keydown", function (event) {
   if (event.code === "ArrowRight") {
     if (currentPokemon <= 1281) {
@@ -60,8 +89,6 @@ async function getSinglePokemonOverviewImage(url) {
   let pokemonSingleData = await response.json();
   let imageUrl =
     pokemonSingleData["sprites"]["other"]["official-artwork"]["front_default"];
-  //console.log(imageUrl);
-  console.log(pokemonSingleData);
   return imageUrl;
 }
 
@@ -89,13 +116,10 @@ async function renderPokemonIndex(pokemonSet) {
 
   for (let i = 0; i < pokemonSet["results"].length; i++) {
     const pokemon = pokemonSet["results"][i];
-    console.log(pokemon);
     //RENDER IMAGE FROM POKEMON
     let imageUrl = await getSinglePokemonOverviewImage(pokemon["url"]);
     let types = await getSinglePokemonTypes(pokemon["url"]);
     let pokeId = pokemon["url"].split("/")[6];
-    // console.log(pokeId);
-    //console.log(currentPokemon);
     renderCard(pokemon, types, imageUrl, pokeId);
   }
 }
@@ -178,7 +202,6 @@ function renderCard(pokemon, types, imageUrl, pokeId) {
   card.className = "singlePokemonCard";
   card.onclick = function () {
     renderModal(pokeId);
-    console.log(pokeId);
   };
 
   card.innerHTML = /*html*/ `
@@ -210,9 +233,6 @@ async function renderModal(id) {
   let response = await fetch(dataUrl);
   let pokemonDetailData = await response.json();
   let stats = getStats(pokemonDetailData);
-  console.log(stats);
-  console.log(stats[0]["base_stat"]);
-  console.log(stats[0]["stat"]["name"]);
 
   let modalContainer = document.getElementById("modal-container");
   modalContainer.innerHTML = "";
