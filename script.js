@@ -36,14 +36,14 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-function nextPokemon(){
+function nextPokemon() {
   if (currentPokemon <= 1281) {
     currentPokemon++;
     renderModal(currentPokemon);
   }
 }
 
-function previousPokemon(){
+function previousPokemon() {
   if (currentPokemon > 1) {
     currentPokemon--;
     renderModal(currentPokemon);
@@ -123,7 +123,6 @@ function renderStats(stats) {
   }
 }
 
-
 function renderCard(pokemon, types, imageUrl, pokeId) {
   let type1 = types[0] || "nothing";
   let type2 = types[1] || "nothing";
@@ -131,15 +130,15 @@ function renderCard(pokemon, types, imageUrl, pokeId) {
   let typeClass1;
   let typeClass2;
 
-  if(type1 == "nothing"){
+  if (type1 == "nothing") {
     typeClass1 = "d-none";
-  }else{
+  } else {
     typeClass1 = type1;
   }
 
-  if(type2 == "nothing"){
+  if (type2 == "nothing") {
     typeClass2 = "d-none";
-  }else{
+  } else {
     typeClass2 = type2;
   }
 

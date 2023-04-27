@@ -97,7 +97,7 @@ body {
   cursor: pointer;
 }
 
-.singlePokemonCard:hover .singlePokemonCardDataContainerImage img{
+.singlePokemonCard:hover .singlePokemonCardDataContainerImage img {
   transform: scale(1.2);
   transition: 500ms ease-in-out;
 }
@@ -329,6 +329,16 @@ body {
 .ice {
   background-color: #98d8d8;
   color: white;
+}
+
+.steel {
+  background-color: #8e8e8e !important;
+  color: #fff !important;
+}
+
+.dark {
+  background-color: #707070 !important;
+  color: #fff !important;
 }
 
 .default {
