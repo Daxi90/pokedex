@@ -143,7 +143,7 @@ body {
 }
 
 .popupsinglePokemonCardHeader {
-  background-color: orange;
+  background-image: url(./img/pokemon-dark.jpg);
   border-radius: 15px 15px 0 0;
   padding-top: 16px;
   padding-left: 16px;
@@ -156,6 +156,8 @@ body {
 
 .popupsinglePokemonCardNumber {
   position: absolute;
+  font-size: 26px;
+  color: white;
   top: 16px;
   right: 16px;
 }
@@ -208,7 +210,7 @@ body {
   }
 
   .popupsinglePokemonCardPokemon {
-    margin-bottom: -55px;
+    margin-bottom: -30px;
     width: 100%;
   }
 }
