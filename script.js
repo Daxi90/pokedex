@@ -89,7 +89,11 @@ function renderStats(stats) {
     const stat = stats[i];
 
     statsContainer.innerHTML += `
-    <span>${stats[i]["stat"]["name"]}: ${stats[i]["base_stat"]}</span>
+    <div class="popupsingleStat">
+      <span>${stats[i]["stat"]["name"]}</span>
+      <span>${stats[i]["base_stat"]}</span>
+    </div>
+    <div class="popupline"></div>
     `;
   }
 }
@@ -141,11 +145,15 @@ async function renderModal(id) {
   modalContainer.innerHTML = /*html*/ `
   <!-- Modal -->
   <div onclick="closeModal()" id="modal" class="modal-background-container">
-    <div onclick="doNotClose(event)" class="modal-container">
-      <img onclick="closeModal()" id="closePopup" src="./img/iconmonstr-x-mark-thin.svg" alt="">
-      <h3 id="pokeModalDetailName">${pokemonDetailData["name"]}</h3>
-      <div id="pokeModalDetailStats">
-       <!-- renderStats Function --> 
+    <div onclick="doNotClose(event)" class="popupsinglePokemonCard">
+    <div class="popupsinglePokemonCardHeader">
+      <span class="popupsinglePokemonCardNumber">#${pokemonDetailData['id']}</span>
+      <img class="popupsinglePokemonCardPokemon" src="${pokemonDetailData["sprites"]["other"]["official-artwork"]["front_default"]}" alt="">
+    </div>
+    <div class="popupsinglePokemonCardBody">
+      <span class="popupsinglePokemonCardBodyName">${pokemonDetailData["name"]}</span>
+      <div id="pokeModalDetailStats" class="popupsinglePokemonCardBodyStatsContainer">
+        <!-- Render Stats Function -->
       </div>
     </div>
   </div>
