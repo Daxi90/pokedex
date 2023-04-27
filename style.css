@@ -97,6 +97,11 @@ body {
   cursor: pointer;
 }
 
+.singlePokemonCard:hover .singlePokemonCardDataContainerImage img{
+  transform: scale(1.2);
+  transition: 500ms ease-in-out;
+}
+
 .singlePokemonCardHeader {
   color: white;
   text-transform: capitalize;
