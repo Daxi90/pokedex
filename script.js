@@ -128,6 +128,21 @@ function renderCard(pokemon, types, imageUrl, pokeId) {
   let type1 = types[0] || "nothing";
   let type2 = types[1] || "nothing";
 
+  let typeClass1;
+  let typeClass2;
+
+  if(type1 == "nothing"){
+    typeClass1 = "d-none";
+  }else{
+    typeClass1 = type1;
+  }
+
+  if(type2 == "nothing"){
+    typeClass2 = "d-none";
+  }else{
+    typeClass2 = type2;
+  }
+
   let card = document.createElement("div");
   card.id = `pokemon-${pokemon["name"]}`;
   card.className = "singlePokemonCard";
@@ -139,8 +154,8 @@ function renderCard(pokemon, types, imageUrl, pokeId) {
       <h2 class="singlePokemonCardHeader">${pokemon["name"]}</h2>
       <div class="singlePokemonCardDataContainer">
         <div class="singlePokemonCardDataContainerType">
-          <div><span class="${type1}">${type1}</span></div>
-          <div><span class="${type2}">${type2}</span></div> 
+          <div><span class="${typeClass1}">${type1}</span></div>
+          <div><span class="${typeClass2}">${type2}</span></div> 
         </div>
         <div class="singlePokemonCardDataContainerImage">
           <img src="${imageUrl}" alt="">
