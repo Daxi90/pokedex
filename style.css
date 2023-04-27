@@ -311,6 +311,16 @@ body {
   color: #fff !important;
 }
 
+.flying {
+  background-color: #a0a0f0 !important;
+  color: white !important;
+}
+
+.dragon {
+  background-color: #7038f8 !important;
+  color: white !important;
+}
+
 .default {
   background-color: #e0e0d1 !important;
   color: #000 !important;

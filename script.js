@@ -149,6 +149,12 @@ function getTypeClass(type){
     typeClass = "ghost";
   }else if(type == "rock"){
     typeClass = "rock";
+  }else if(type == "flying"){
+    typeClass = "flying";
+  }else if(type == "dragon"){
+    typeClass = "dragon";
+  }else if(type == "nothing"){
+    typeClass = "d-none";
   }
 
   return typeClass;
