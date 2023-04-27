@@ -23,6 +23,25 @@ function animateCard(card) {
   );
 }
 
+document.addEventListener("keydown", function (event) {
+  if (event.code === "ArrowRight") {
+    if (currentPokemon <= 1281) {
+      currentPokemon++;
+      renderModal(currentPokemon);
+    }
+  }
+  if (event.code === "ArrowLeft") {
+    if (currentPokemon > 1) {
+      currentPokemon--;
+      renderModal(currentPokemon);
+    }
+  }
+
+  if (event.code === "Escape") {
+    closeModal();
+  }
+});
+
 function doNotClose(event) {
   event.stopPropagation();
 }
@@ -101,7 +120,51 @@ function renderStats(stats) {
   }
 }
 
+function getTypeClass(type){
+  let typeClass = "default";
+
+  if(type == "grass"){
+    typeClass = "grass";
+  }else if(type == "fire"){
+    typeClass = "fire";
+  }else if(type == "water"){
+    typeClass = "water";
+  }else if(type == "bug"){
+    typeClass = "bug";
+  }else if(type == "normal"){
+    typeClass = "normal";
+  }else if(type == "poison"){
+    typeClass = "poison";
+  }else if(type == "electric"){
+    typeClass = "electric";
+  }else if(type == "ground"){
+    typeClass = "ground";
+  }else if(type == "psychic"){
+    typeClass = "psychic";
+  }else if(type == "fairy"){
+    typeClass = "fairy";
+  }else if(type == "fighting"){
+    typeClass = "fighting";
+  }else if(type == "ghost"){
+    typeClass = "ghost";
+  }else if(type == "rock"){
+    typeClass = "rock";
+  }
+
+  return typeClass;
+  
+}
+
 function renderCard(pokemon, types, imageUrl, pokeId) {
+  let type1 = types[0] || "nothing";
+  let type2 = types[1] || "nothing";
+
+  let type1Class = getTypeClass(type1);
+  let type2Class = getTypeClass(type2);
+
+
+
+
   let card = document.createElement("div");
   card.id = `pokemon-${pokemon["name"]}`;
   card.className = "singlePokemonCard";
@@ -114,8 +177,8 @@ function renderCard(pokemon, types, imageUrl, pokeId) {
       <h2 class="singlePokemonCardHeader">${pokemon["name"]}</h2>
       <div class="singlePokemonCardDataContainer">
         <div class="singlePokemonCardDataContainerType">
-          <div><span>${types[0]}</span></div>
-          <div><span>${types[1]}</span></div> 
+          <div><span class="${type1Class}">${type1}</span></div>
+          <div><span class="${type2Class}">${type2}</span></div> 
         </div>
         <div class="singlePokemonCardDataContainerImage">
           <img src="${imageUrl}" alt="">
@@ -134,6 +197,7 @@ function closeModal() {
 }
 
 async function renderModal(id) {
+  currentPokemon = id;
   let dataUrl = `https://pokeapi.co/api/v2/pokemon/${id}/`;
   let response = await fetch(dataUrl);
   let pokemonDetailData = await response.json();
@@ -150,7 +214,7 @@ async function renderModal(id) {
   <div onclick="closeModal()" id="modal" class="modal-background-container">
     <div onclick="doNotClose(event)" class="popupsinglePokemonCard">
     <div class="popupsinglePokemonCardHeader">
-      <span class="popupsinglePokemonCardNumber">#${pokemonDetailData['id']}</span>
+      <span class="popupsinglePokemonCardNumber">#${pokemonDetailData["id"]}</span>
       <img class="popupsinglePokemonCardPokemon" src="${pokemonDetailData["sprites"]["other"]["official-artwork"]["front_default"]}" alt="">
     </div>
     <div class="popupsinglePokemonCardBody">
