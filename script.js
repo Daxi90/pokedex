@@ -25,22 +25,30 @@ function animateCard(card) {
 
 document.addEventListener("keydown", function (event) {
   if (event.code === "ArrowRight") {
-    if (currentPokemon <= 1281) {
-      currentPokemon++;
-      renderModal(currentPokemon);
-    }
+    nextPokemon();
   }
   if (event.code === "ArrowLeft") {
-    if (currentPokemon > 1) {
-      currentPokemon--;
-      renderModal(currentPokemon);
-    }
+    previousPokemon();
   }
 
   if (event.code === "Escape") {
     closeModal();
   }
 });
+
+function nextPokemon(){
+  if (currentPokemon <= 1281) {
+    currentPokemon++;
+    renderModal(currentPokemon);
+  }
+}
+
+function previousPokemon(){
+  if (currentPokemon > 1) {
+    currentPokemon--;
+    renderModal(currentPokemon);
+  }
+}
 
 function doNotClose(event) {
   event.stopPropagation();
@@ -169,6 +177,8 @@ async function renderModal(id) {
       <img class="popupsinglePokemonCardPokemon" src="${pokemonDetailData["sprites"]["other"]["official-artwork"]["front_default"]}" alt="">
     </div>
     <div class="popupsinglePokemonCardBody">
+      <img onclick="previousPokemon()" style="width: 30px; position: absolute; top:38px; left: 16px;" src="./img/left-arrow.png" alt="">
+      <img onclick="nextPokemon()" style="width: 30px;  position: absolute; top:38px; right: 16px; transform: rotate(180deg)" src="./img/left-arrow.png" alt="">
       <span class="popupsinglePokemonCardBodyName">${pokemonDetailData["name"]}</span>
       <div id="pokeModalDetailStats" class="popupsinglePokemonCardBodyStatsContainer">
         <!-- Render Stats Function -->
